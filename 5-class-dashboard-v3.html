@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>5 класс · 2026/27</title>
+<style>
+:root{--bg:#f5f4ef;--card:#fff;--ink:#171714;--muted:#77766f;--line:#e8e6df;--lime:#b9f34a;--dark:#1d1d1a;--holiday:#fff1a8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+.wrap{max-width:520px;margin:auto;padding:22px 16px 48px}.top{display:flex;justify-content:space-between;margin-bottom:18px}.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}.year{font-size:12px;color:var(--muted)}
+.hero{background:var(--dark);color:#fff;border-radius:28px;padding:24px;margin-bottom:12px}.eyebrow{font-size:12px;color:#bbb;letter-spacing:.06em;text-transform:uppercase}.hero h1{font-size:32px;line-height:1.05;margin:8px 0 18px}.row{display:flex;align-items:center;gap:8px;font-size:13px}.dot{width:9px;height:9px;border-radius:50%;background:var(--lime)}.progress{height:7px;background:#3b3b36;border-radius:99px;overflow:hidden;margin:12px 0 7px}.progress i{display:block;height:100%;background:var(--lime)}.small{font-size:12px;color:#aaa}
+.card{background:#fff;border-radius:24px;padding:20px;margin:12px 0}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}.head h2{font-size:20px;margin:0}.badge{font-size:12px;background:#f0f0eb;border-radius:99px;padding:7px 10px}
+.lesson{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}.lesson:first-child{border-top:0}.num{width:30px;height:30px;border-radius:50%;background:#f1f0eb;display:grid;place-items:center;font-size:12px;font-weight:800}.subject{font-size:15px;font-weight:700}.teacher{font-size:11px;color:var(--muted);margin-top:3px}.time{font-size:12px;color:var(--muted)}.now{margin:0 -10px;padding:12px 10px;border-radius:16px;background:#efffd1;border-top-color:transparent}.now .num{background:var(--lime)}
+.status{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.bigcount{font-size:42px;font-weight:850;letter-spacing:-.04em}.bigcount span{font-size:15px;font-weight:600;color:var(--muted);letter-spacing:0}
+.track{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:16px}.d{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:10px;background:#eeede7;color:#aaa}.d.done{background:#d7d6cf;color:#777;text-decoration:line-through}.d.today{background:var(--lime);color:#111;font-weight:900;outline:3px solid #eaffbd}
+.holidayBox{background:var(--holiday);border-radius:18px;padding:14px;margin-top:14px}.holidayTitle{font-weight:800;font-size:13px}.holidayDates{font-size:12px;margin-top:4px;color:#665d35}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:12px}.tab{border:0;border-radius:12px;padding:9px 4px;background:#efeee8;font-size:11px}.tab.active{background:var(--dark);color:#fff}.weekday{font-size:13px;font-weight:800;margin:5px 0 8px}
+.teachers{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tc{background:#f6f5f0;border-radius:16px;padding:12px}.ts{font-size:11px;color:var(--muted);margin-bottom:4px}.tn{font-size:13px;font-weight:700}
+.note{font-size:10px;color:#999;line-height:1.45;margin-top:12px}.events{display:grid;gap:8px}.event{display:grid;grid-template-columns:54px 1fr;gap:12px;padding:14px;background:#f6f5f0;border-radius:17px}.event.todayEvent{background:#efffd1}.eventDate{font-size:11px;font-weight:850;text-transform:uppercase;line-height:1.2}.eventTitle{font-size:14px;font-weight:800}.eventText{font-size:11px;color:var(--muted);line-height:1.45;margin-top:4px}.eventTime{display:inline-block;margin-top:7px;font-size:11px;font-weight:800;background:white;border-radius:99px;padding:5px 8px}.special{background:#fff7d2}
+footer{text-align:center;color:#aaa;font-size:10px;margin-top:22px}
+</style></head><body><div class="wrap">
+<div class="top"><div class="brand">5 класс</div><div class="year">2026 / 2027</div></div>
+<section class="hero"><div class="eyebrow" id="date"></div><h1 id="heroTitle">Сегодня</h1><div class="row"><i class="dot"></i><span id="mod"></span></div><div class="progress"><i id="prog"></i></div><div class="small" id="progText"></div></section>
+<section class="card"><div class="head"><h2>Сегодня</h2><span class="badge" id="finish"></span></div><div id="today"></div><div class="status" id="status"></div></section>
+<section class="card"><div class="head"><h2>До каникул</h2><span class="badge" id="nextHol"></span></div><div class="bigcount" id="count"></div><div class="track" id="track"></div><div class="holidayBox"><div class="holidayTitle">Следующие каникулы 🎉</div><div class="holidayDates" id="holidayDates"></div></div><div class="note">Крестиком отмечаются уже пройденные учебные дни. Сегодня выделяется зелёным.</div></section>
+<section class="card"><div class="head"><h2>Важно на этой неделе</h2><span class="badge">1–4 сентября</span></div><div class="events" id="events"></div></section>
+<section class="card"><div class="head"><h2>Неделя</h2><span class="badge">5 класс</span></div><div class="tabs" id="tabs"></div><div id="week"></div></section>
+<section class="card"><div class="head"><h2>Учителя</h2><span class="badge">2026/27</span></div><div class="teachers" id="teachers"></div></section>
+<footer>Дата и текущий урок определяются автоматически</footer>
+</div><script>
+const teachers={"Биология":"Александра Валериевна","Русский язык":"Татьяна Александровна","Литература":"Марина Юрьевна","История":"Андрюс Викторович","География":"Андрюс Викторович","Английский язык":"Светлана Борисовна","Информатика":"Артём Сергеевич","Математика":"Лев Андреевич","ИЗО/Труд":"Валентина Владимировна","Физкультура":"Дмитрий Витальевич","Сцен. мастерство":"Дмитрий Витальевич","Классный час":"Ольга Игоревна"};
+const sch={1:["История","Физкультура","Русский язык","Математика","Английский язык"],2:["Английский язык","Математика","Классный час","География","Сцен. мастерство","Литература"],3:["Биология","Физкультура","Русский язык","Русский язык","Математика","Английский язык"],4:["Английский язык","Сцен. мастерство","Русский язык","Русский язык","Литература","История"],5:["Информатика","Математика","Математика","История","ИЗО/Труд","Русский язык"]};
+const times=[["09:15","09:55"],["10:05","10:45"],["10:55","11:35"],["11:45","12:25"],["12:40","13:20"],["13:35","14:15"],["14:25","14:55"],["15:00","15:40"]];
+const mods=[{n:1,s:"2026-09-01",e:"2026-10-23",hs:"2026-10-24",he:"2026-11-04"},{n:2,s:"2026-11-05",e:"2026-12-24",hs:"2026-12-25",he:"2027-01-10"},{n:3,s:"2027-01-11",e:"2027-02-12",hs:"2027-02-13",he:"2027-02-23"},{n:4,s:"2027-02-24",e:"2027-04-02",hs:"2027-04-03",he:"2027-04-11"},{n:5,s:"2027-04-12",e:"2027-05-25",hs:"2027-05-26",he:"2027-08-31"}];
+const months=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"], w=["ВС","ПН","ВТ","СР","ЧТ","ПТ","СБ"];
+const parse=s=>{let[a,b,c]=s.split("-").map(Number);return new Date(a,b-1,c)}, iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`, fmt=d=>`${d.getDate()} ${months[d.getMonth()]}`, day0=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+const now=new Date(), today0=day0(now), key=iso(now);
+let m=mods.find(x=>key>=x.s&&key<=x.he)||mods[0], onHoliday=key>=m.hs&&key<=m.he;
+document.getElementById("date").textContent=`${w[now.getDay()]} · ${now.getDate()} ${months[now.getMonth()]}`;
+document.getElementById("heroTitle").textContent=onHoliday?"Каникулы 🎉":"Сегодня";
+document.getElementById("mod").textContent=onHoliday?`${m.n} модуль завершён · отдыхаем`:`${m.n} модуль · учимся`;
+function weekdays(a,b){let arr=[],d=parse(a),z=parse(b);while(d<=z){if(d.getDay()>0&&d.getDay()<6)arr.push(new Date(d));d.setDate(d.getDate()+1)}return arr}
+let study=weekdays(m.s,m.e), done=study.filter(d=>d<today0).length, pct=Math.round(100*Math.min(done,study.length)/study.length);
+document.getElementById("prog").style.width=pct+"%";document.getElementById("progText").textContent=onHoliday?`Учебная часть модуля пройдена · 100%`:`Пройдено ${done} из ${study.length} учебных дней · ${pct}%`;
+function mins(s){let[a,b]=s.split(":").map(Number);return a*60+b}
+function lesson(sub,i,active=false){return `<div class="lesson ${active?"now":""}"><div class="num">${i+1}</div><div><div class="subject">${sub}</div>${teachers[sub]?`<div class="teacher">${teachers[sub]}</div>`:""}</div><div class="time">${times[i][0]}–${times[i][1]}</div></div>`}
+let dow=now.getDay(), lessons=(!onHoliday&&sch[dow])?sch[dow]:[], cur=now.getHours()*60+now.getMinutes();
+document.getElementById("today").innerHTML=lessons.length?lessons.map((s,i)=>lesson(s,i,cur>=mins(times[i][0])&&cur<=mins(times[i][1]))).join(""):`<div class="note">${onHoliday?"Сегодня каникулы. Никаких уроков 😁":"Сегодня занятий нет 🎉"}</div>`;
+document.getElementById("finish").textContent=lessons.length?`до ${times[lessons.length-1][1]}`:"отдыхаем";
+let ai=lessons.findIndex((s,i)=>cur>=mins(times[i][0])&&cur<=mins(times[i][1])), ni=lessons.findIndex((s,i)=>cur<mins(times[i][0]));
+document.getElementById("status").textContent=ai>=0?`Сейчас: ${lessons[ai]} · до ${times[ai][1]}`:ni>=0?`Следующий: ${lessons[ni]} · в ${times[ni][0]}`:lessons.length?"На сегодня всё ✨":"";
+
+if(key==="2026-09-01"){
+ document.getElementById("today").innerHTML=`<div class="event todayEvent"><div class="eventDate">9:40</div><div><div class="eventTitle">День знаний</div><div class="eventText">Торжественное открытие учебного года и приветственный урок.</div><span class="eventTime">до 12:00</span></div></div>`;
+ document.getElementById("finish").textContent="до 12:00";
+ document.getElementById("status").textContent="Сегодня обычного расписания нет · встречаемся в 9:40 ❤️";
+}
+
+let hs=parse(m.hs), he=parse(m.he), remaining=study.filter(d=>d>=today0).length;
+document.getElementById("count").innerHTML=onHoliday?`${Math.max(0,Math.ceil((he-today0)/86400000)+1)} <span>дней отдыха осталось</span>`:`${remaining} <span>учебных дней</span>`;
+document.getElementById("nextHol").textContent=onHoliday?"уже идут 🎉":`с ${fmt(hs)}`;
+document.getElementById("holidayDates").textContent=`${fmt(hs)} — ${fmt(he)}`;
+document.getElementById("track").innerHTML=study.map(d=>`<span class="d ${d<today0?"done":""} ${iso(d)==key?"today":""}">${d<today0?"×":d.getDate()}</span>`).join("");
+let selected=dow>=1&&dow<=5?dow:1,names={1:"ПН",2:"ВТ",3:"СР",4:"ЧТ",5:"ПТ"},full=["","Понедельник","Вторник","Среда","Четверг","Пятница"];
+window.renderWeek=function(d){selected=d;document.getElementById("tabs").innerHTML=[1,2,3,4,5].map(x=>`<button class="tab ${x==d?"active":""}" onclick="renderWeek(${x})">${names[x]}</button>`).join("");document.getElementById("week").innerHTML=`<div class="weekday">${full[d]}</div>`+sch[d].map((s,i)=>lesson(s,i)).join("")};renderWeek(selected);
+
+const events=[
+ {date:"2026-09-01",label:"1 сен",title:"День знаний",time:"9:40–12:00",text:"Торжественное открытие учебного года, приветственный урок и встреча. В 12:00 дети свободны."},
+ {date:"2026-09-03",label:"3 сен",title:"Родительское собрание",time:"18:30",text:"Традиционное родительское собрание."},
+ {date:"2026-09-04",label:"4 сен",title:"Общешкольный пикник",time:"",text:"Традиционный школьный пикник. Ждут всех детей, родители тоже приглашены."}
+];
+document.getElementById("events").innerHTML=events.map(e=>`<div class="event ${e.date==key?"todayEvent":""} ${e.date=="2026-09-04"?"special":""}"><div class="eventDate">${e.label}</div><div><div class="eventTitle">${e.title}</div><div class="eventText">${e.text}</div>${e.time?`<span class="eventTime">${e.time}</span>`:""}</div></div>`).join("");
+
+document.getElementById("teachers").innerHTML=Object.entries(teachers).map(([s,n])=>`<div class="tc"><div class="ts">${s}</div><div class="tn">${n}</div></div>`).join("");
+</script></body></html>
