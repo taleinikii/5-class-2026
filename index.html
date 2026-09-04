@@ -54,6 +54,11 @@ if(key==="2026-09-01"){
  document.getElementById("finish").textContent="до 12:00";
  document.getElementById("status").textContent="Сегодня обычного расписания нет · встречаемся в 9:40 ❤️";
 }
+if(key==="2026-09-04"){
+ document.getElementById("today").innerHTML=`<div class="event todayEvent"><div class="eventDate">Сегодня<span class="eventWeekday">10:00</span></div><div><div class="eventTitle">ПИКНИК 🌿</div><div class="eventText">Сегодня занятий нет. Встречаемся на школьном пикнике! Учителя подготовили программу, будет и вкусная часть 😄 Одеваемся по погоде.</div><a class="eventLocation" href="https://yandex.ru/maps/org/mesto_dlya_piknika/245255804193" target="_blank" rel="noopener noreferrer">📍 Открыть локацию</a></div></div>`;
+ document.getElementById("finish").textContent="занятий нет";
+ document.getElementById("status").textContent="Встречаемся на пикнике в 10:00 🌿";
+}
 
 let hs=parse(m.hs), he=parse(m.he), remaining=study.filter(d=>d>=today0).length;
 document.getElementById("count").innerHTML=onHoliday?`${Math.max(0,Math.ceil((he-today0)/86400000)+1)} <span>дней отдыха осталось</span>`:`${remaining} <span>учебных дней</span>`;
