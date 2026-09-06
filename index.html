@@ -28,6 +28,18 @@ footer{text-align:center;color:#aaa;font-size:10px;margin-top:22px}
 <footer>Дата и текущий урок определяются автоматически</footer>
 </div><script>
 const teachers={"Биология":"Александра Валериевна","Русский язык":"Татьяна Александровна","Литература":"Марина Юрьевна","История":"Андрюс Викторович","География":"Андрюс Викторович","Английский язык":"Светлана Борисовна","Информатика":"Артём Сергеевич","Математика":"Лев Андреевич","ИЗО/Труд":"Валентина Владимировна","Физкультура":"Дмитрий Витальевич","Сцен. мастерство":"Дмитрий Витальевич","Классный час":"Ольга Игоревна"};
+const teacherCards=[
+ {subjects:"Биология",name:"Александра Валериевна",classTeacher:true},
+ {subjects:"Русский язык",name:"Татьяна Александровна"},
+ {subjects:"Литература",name:"Марина Юрьевна"},
+ {subjects:"История · География",name:"Андрюс Викторович"},
+ {subjects:"Английский язык",name:"Светлана Борисовна"},
+ {subjects:"Информатика",name:"Артём Сергеевич"},
+ {subjects:"Математика",name:"Лев Андреевич"},
+ {subjects:"ИЗО · Труд",name:"Валентина Владимировна"},
+ {subjects:"Физкультура · Сценическое мастерство",name:"Дмитрий Витальевич"},
+ {subjects:"Классный час",name:"Ольга Игоревна"}
+];
 const sch={1:["История","Физкультура","Русский язык","Математика","Английский язык"],2:["Английский язык","Математика","Классный час","География","Сцен. мастерство","Литература"],3:["Биология","Физкультура","Русский язык","Русский язык","Математика","Английский язык"],4:["Английский язык","Сцен. мастерство","Русский язык","Русский язык","Литература","История"],5:["Информатика","Математика","Математика","История","ИЗО/Труд","Русский язык"]};
 const times=[["09:15","09:55"],["10:05","10:45"],["10:55","11:35"],["11:45","12:25"],["12:40","13:20"],["13:35","14:15"],["14:25","14:55"],["15:00","15:40"]];
 const mods=[{n:1,s:"2026-09-01",e:"2026-10-23",hs:"2026-10-24",he:"2026-11-04"},{n:2,s:"2026-11-05",e:"2026-12-24",hs:"2026-12-25",he:"2027-01-10"},{n:3,s:"2027-01-11",e:"2027-02-12",hs:"2027-02-13",he:"2027-02-23"},{n:4,s:"2027-02-24",e:"2027-04-02",hs:"2027-04-03",he:"2027-04-11"},{n:5,s:"2027-04-12",e:"2027-05-25",hs:"2027-05-26",he:"2027-08-31"}];
@@ -108,5 +120,5 @@ const grouped=calendarItems.reduce((acc,e)=>{let d=parse(e.date),id=`${d.getFull
 document.getElementById("yearCalendar").innerHTML=Object.values(grouped).map(g=>`<div class="monthGroup"><div class="monthTitle">${monthNames[g.date.getMonth()]} ${g.date.getFullYear()}</div>${g.items.map(e=>`<div class="monthEvent ${e.birthday?"birthday":""}"><div class="monthDay">${parse(e.date).getDate()}</div><div class="monthEventTitle">${e.birthday?"🎂 День рождения · ":""}${e.title}${e.time?` · ${e.time}`:""}</div></div>`).join("")}</div>`).join("")||`<div class="emptyEvents">Новых событий пока нет.</div>`;
 document.getElementById("calendarToggle").addEventListener("click",function(){let box=document.getElementById("yearCalendar"),open=box.hidden;box.hidden=!open;this.setAttribute("aria-expanded",String(open));this.textContent=open?"Скрыть календарь ↑":"Календарь года ↓"});
 
-document.getElementById("teachers").innerHTML=`<div class="tc director"><div class="ts">Директор школы</div><div class="tn">Элла Александровна</div></div>`+Object.entries(teachers).map(([s,n])=>`<div class="tc ${n==="Александра Валериевна"?"classTeacher":""}"><div class="ts">${s}</div><div class="tn">${n}</div>${n==="Александра Валериевна"?`<span class="role">Классный руководитель</span>`:""}</div>`).join("");
+document.getElementById("teachers").innerHTML=`<div class="tc director"><div class="ts">Директор школы</div><div class="tn">Элла Александровна</div></div>`+teacherCards.map(t=>`<div class="tc ${t.classTeacher?"classTeacher":""}"><div class="ts">${t.subjects}</div><div class="tn">${t.name}</div>${t.classTeacher?`<span class="role">Классный руководитель</span>`:""}</div>`).join("");
 </script></body></html>
